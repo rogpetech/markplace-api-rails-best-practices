@@ -32,7 +32,6 @@ RSpec.describe Api::V1::UsersController, type: :controller do
       end
 
       it { should respond_with 201 }
-
     end
 
     context 'when is not created' do

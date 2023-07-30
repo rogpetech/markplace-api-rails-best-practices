@@ -8,9 +8,9 @@ module Api
       end
 
       def create
+        binding.pry
         user = User.create(user_params)
 
-        binding.pry
         if user.save
           render json: user, status: 201, localtion: [:api, user]
         else

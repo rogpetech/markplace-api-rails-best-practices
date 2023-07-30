@@ -1,5 +1,6 @@
-All:
+AllCops:
   Exclude:
-    - spec/**
-Style/Documentation:
-  Enabled: false
+    - 'spec/**/*'
+Metrics/BlockLength:
+  Exclude:
+    - 'spec/**/*.rb'

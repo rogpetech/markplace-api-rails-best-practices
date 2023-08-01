@@ -1,0 +1,44 @@
+---
+openapi: 3.0.1
+info:
+  title: API V1
+  version: v1
+paths:
+  "/users/{id}":
+    get:
+      summary: Retrivies a users
+      tags:
+      - Api::V1::Users
+      parameters:
+      - name: Accept
+        in: header
+        description: Add structure for version
+        required: true
+        schema:
+          type: string
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: user found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: integer
+                  email:
+                    type: string
+                  created_at:
+                    type: string
+                  updated_at:
+                    type: string
+servers:
+- url: http://{defaultHost}
+  variables:
+    defaultHost:
+      default: api.lvh.me:8080

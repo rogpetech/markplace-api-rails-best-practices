@@ -7,7 +7,7 @@ class User < ApplicationRecord
   validates :email, uniqueness: { case_sensitive: true }
   validates :token, uniqueness: true
 
-  def geneate_authetication_token!
+  def generate_authetication_token!
     begin
       self.token = Devise.friendly_token
     end while self.class.exists?(token: token)

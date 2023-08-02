@@ -2,8 +2,8 @@ require 'swagger_helper'
 
 RSpec.describe 'api/v1/users', type: :request do
   path '/users/{id}' do
-    get 'Retrivies a users' do
-      tags 'Api::V1::Users'
+    get 'Retrivie a user' do
+      tags 'API:V1::USERS'
       produces 'application/json'
       parameter name: 'Accept',
                 in: :header,
@@ -29,68 +29,116 @@ RSpec.describe 'api/v1/users', type: :request do
     end
   end
 
-  # path '/users/{id}' do
-  #   # You'll want to customize the parameter types...
-  #   parameter name: 'id', in: :path, type: :string, description: 'id'
+  path '/users' do
+    post 'Create a user' do
+      tags 'API:V1::USERS'
+      consumes 'application/json'
+      parameter name: :body,
+                in: :body,
+                schema: {
+                  type: :object,
+                  properties: {
+                    user: {
+                      type: :object,
+                      properties: {
+                        email: { type: :string },
+                        password: { type: :string },
+                        password_confirmation: { type: :string }
+                      }
+                    }
+                  }
+                }
 
-  #   get('show user') do
-  #     response(200, 'successful') do
-  #       let(:id) { '123' }
+      response '201', 'create user' do
+        let!(:body) do
+          {
+            'user': {
+              'email': 'example@example.org',
+              'password': '123456',
+              'password_confirmation': '123456'
+            }
+          }
+        end
+        run_test!
+      end
+      response '422', 'create user error' do
+        let!(:body) do
+          {
+            'email': 'example@example.org',
+            'password': '123456',
+            'password_confirmation': '123456'
+          }
+        end
+        run_test!
+      end
+    end
+  end
 
-  #       after do |example|
-  #         example.metadata[:response][:content] = {
-  #           'application/json' => {
-  #             example: JSON.parse(response.body, symbolize_names: true)
-  #           }
-  #         }
-  #       end
-  #       run_test!
-  #     end
-  #   end
+  path '/users/{id}' do
+    delete 'Delete a user' do
+      tags 'API:V1::USERS'
+      consumes 'application/json'
+      parameter name: :id, in: :path, type: :string
 
-  #   patch('update user') do
-  #     response(200, 'successful') do
-  #       let(:id) { '123' }
+      response '204', 'user deleted' do
+        let!(:id) { FactoryBot.create(:user).id }
+        run_test!
+      end
 
-  #       after do |example|
-  #         example.metadata[:response][:content] = {
-  #           'application/json' => {
-  #             example: JSON.parse(response.body, symbolize_names: true)
-  #           }
-  #         }
-  #       end
-  #       run_test!
-  #     end
-  #   end
+      # response '404', 'user not found' do
+      #   let!(:id) { 2 }
+      #   run_test!
+      # end
+    end
+  end
 
-  #   put('update user') do
-  #     response(200, 'successful') do
-  #       let(:id) { '123' }
+  path '/users/{id}' do
+    patch 'Update a user' do
+      tags 'API:V1::USERS'
+      consumes 'application/json'
+      parameter name: :id, in: :path, type: :integer
+      parameter name: :body, in: :body,
+                schema: {
+                  type: :object,
+                  properties: {
+                    user: {
+                      type: :object,
+                      properties: {
+                        email: { type: :string },
+                        password: { type: :string },
+                        password_confirmation: { type: :string }
+                      }
+                    }
+                  }
+                }
 
-  #       after do |example|
-  #         example.metadata[:response][:content] = {
-  #           'application/json' => {
-  #             example: JSON.parse(response.body, symbolize_names: true)
-  #           }
-  #         }
-  #       end
-  #       run_test!
-  #     end
-  #   end
+      response '200', 'user updated' do
+        let!(:id) { FactoryBot.create(:user).id }
+        let!(:body) do
+          {
+            'user': {
+              'email': 'example2@example.org',
+              'password': '123456',
+              'password_confirmation': '123456'
+            }
+          }
+        end
+        run_test!
+      end
 
-  #   delete('delete user') do
-  #     response(200, 'successful') do
-  #       let(:id) { '123' }
-
-  #       after do |example|
-  #         example.metadata[:response][:content] = {
-  #           'application/json' => {
-  #             example: JSON.parse(response.body, symbolize_names: true)
-  #           }
-  #         }
-  #       end
-  #       run_test!
-  #     end
-  #   end
-  # end
+      # response '404', 'user not found' do
+      #   let!(:id) { 2 }
+      #   let!(:body) do
+      #     {
+      #       'user': {
+      #         'email': 'example2@example.org',
+      #         'password': '123456',
+      #         'password_confirmation': '123456'
+      #       }
+      #     }
+      #   end
+      #   run_test!
+      # end
+    end
+  end
 end

@@ -1,0 +1,114 @@
+---
+openapi: 3.0.1
+info:
+  title: API V1
+  version: v1
+paths:
+  "/users/{id}":
+    get:
+      summary: Retrivies a users
+      tags:
+      - API:V1::USERS
+      parameters:
+      - name: Accept
+        in: header
+        description: Add structure for version
+        schema:
+          type: string
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: user found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: integer
+                  email:
+                    type: string
+                  created_at:
+                    type: string
+                  updated_at:
+                    type: string
+    delete:
+      summary: Delete a user
+      tags:
+      - API:V1::USERS
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '204':
+          description: user deleted
+        '404':
+          description: user not found
+    patch:
+      summary: Update a user
+      tags:
+      - API:V1::USERS
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: user updated
+        '404':
+          description: user not found
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                user:
+                  type: object
+                  properties:
+                    email:
+                      type: string
+                    password:
+                      type: string
+                    password_confirmation:
+                      type: string
+  "/users":
+    post:
+      summary: Create a user
+      tags:
+      - API:V1::USERS
+      parameters: []
+      responses:
+        '201':
+          description: create user
+        '422':
+          description: create user error
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                user:
+                  type: object
+                  properties:
+                    email:
+                      type: string
+                    password:
+                      type: string
+                    password_confirmation:
+                      type: string
+servers:
+- url: http://{defaultHost}
+  variables:
+    defaultHost:
+      default: api.lvh.me:8080

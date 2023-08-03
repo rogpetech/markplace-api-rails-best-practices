@@ -18,7 +18,6 @@ RSpec.describe Api::V1::SessionsController, type: :controller do
       end
 
       it { should respond_with 200 }
-      
     end
 
     context 'when the crentials are incorrect' do
@@ -33,5 +32,15 @@ RSpec.describe Api::V1::SessionsController, type: :controller do
 
       it { should respond_with 422 }
     end
+  end
+
+  describe 'DELETE #destroy' do
+    before(:each) do
+      @user = FactoryBot.create(:user)
+      sign_in(@user)
+      delete :destroy, params: { id: @user.token }
+    end
+
+    it { should respond_with 204 }
   end
 end

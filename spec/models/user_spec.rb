@@ -24,18 +24,22 @@ RSpec.describe User, type: :model do
     it { should validate_uniqueness_of(:token) }
   end
 
-  describe '#generate_authetication_token!' do
+  describe '#generate_authentication_token!' do
     it 'generates a unique token' do
       token = 'r0lf025125azsz5s51sa'
       allow(Devise).to receive(:friendly_token).and_return(token)
-      user.generate_authetication_token!
+      user.generate_authentication_token!
       expect(user.token).to eql(token)
     end
 
     it 'generates another token when one has been taken' do
       exists_user = FactoryBot.create(:user, token: 'r0lf155125azsz5s51sa')
-      user.generate_authetication_token!
+      user.generate_authentication_token!
       expect(user.token).not_to eql exists_user.token
     end
+  end
+
+  describe 'associations' do
+    it { should have_many(:products) }
   end
 end

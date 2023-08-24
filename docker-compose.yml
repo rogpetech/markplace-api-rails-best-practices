@@ -1,0 +1,31 @@
+version: '3.8'
+
+services:
+  app:
+    build: .
+    command: bash -c "rm -f tmp/pids/server.pid && bundle exec rails s -p 3000 -b '0.0.0.0'"
+    volumes:
+      - .:/var/app
+    ports:
+      - "3000:3000"
+    depends_on:
+      - db
+    networks:
+      - rededefault
+
+  db:
+    image: postgres:13
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_USER=rodolfo
+      - POSTGRES_PASSWORD=R0d0lf0P31x0t0
+      - POSTGRES_DB=marketplace_api_development
+    networks:
+      - rededefault
+
+networks:
+  rededefault:
+    driver: bridge
+volumes:
+  postgres_data:

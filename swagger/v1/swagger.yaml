@@ -4,9 +4,122 @@ info:
   title: API V1
   version: v1
 paths:
+  "/products/{id}":
+    get:
+      summary: Retrieve a product
+      tags:
+      - API:V1::PRODUCTS
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: product found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: integer
+                  title:
+                    type: string
+    patch:
+      summary: Update a product
+      tags:
+      - API:V1::PRODUCTS
+      parameters:
+      - name: Authorization
+        in: header
+        description: Authorization token
+        required: true
+        schema:
+          type: string
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: product updated
+        '422':
+          description: invalid product
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                product:
+                  type: object
+                  properties:
+                    title:
+                      type: string
+                    price:
+                      type: number
+    delete:
+      summary: Delete a product
+      tags:
+      - API:V1::PRODUCTS
+      parameters:
+      - name: Authorization
+        in: header
+        description: Authorization token
+        required: true
+        schema:
+          type: string
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+      responses:
+        '204':
+          description: product deleted
+  "/products":
+    get:
+      summary: List all products
+      tags:
+      - API:V1::PRODUCTS
+      responses:
+        '200':
+          description: products listed
+    post:
+      summary: Create a product
+      tags:
+      - API:V1::PRODUCTS
+      parameters:
+      - name: Authorization
+        in: header
+        description: Authorization token
+        required: true
+        schema:
+          type: string
+      responses:
+        '201':
+          description: product created
+        '422':
+          description: invalid product
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                product:
+                  type: object
+                  properties:
+                    title:
+                      type: string
+                    price:
+                      type: number
   "/users/{id}":
     get:
-      summary: Retrivies a users
+      summary: Retrivie a user
       tags:
       - API:V1::USERS
       parameters:
@@ -49,8 +162,6 @@ paths:
       responses:
         '204':
           description: user deleted
-        '404':
-          description: user not found
     patch:
       summary: Update a user
       tags:
@@ -64,8 +175,6 @@ paths:
       responses:
         '200':
           description: user updated
-        '404':
-          description: user not found
       requestBody:
         content:
           application/json:

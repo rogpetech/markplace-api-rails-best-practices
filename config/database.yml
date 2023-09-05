@@ -6,7 +6,7 @@ default: &default
 development:
   <<: *default
   database: marketplace_api_development
-  host: localhost
+  host: db # localhost
   port: 5432
   username: rodolfo
   password: R0d0lf0P31x0t0
@@ -14,7 +14,7 @@ development:
 test:
   <<: *default
   database: marketplace_api_test
-  host: localhost
+  host: db
   port: 5432
   username: rodolfo
   password: R0d0lf0P31x0t0

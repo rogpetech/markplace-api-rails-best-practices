@@ -117,6 +117,10 @@ paths:
                       type: string
                     price:
                       type: number
+                    description:
+                      type: string
+                    published:
+                      type: boolean
   "/users/{id}":
     get:
       summary: Retrivie a user

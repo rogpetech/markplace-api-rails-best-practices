@@ -11,6 +11,7 @@ gem 'pg', '~> 1.1'
 gem 'puma', '~> 5.0'
 gem 'rswag-api'
 gem 'rswag-ui'
+gem 'active_model_serializers'
 
 # Build JSON APIs with ease [https://github.com/rails/jbuilder]
 # gem "jbuilder"
@@ -42,6 +43,7 @@ end
 group :test do
   gem 'shoulda-matchers', '~> 5.0'
   gem 'simplecov', '~> 0.22.0', require: false
+  gem 'database_cleaner'
 end
 
 group :development do

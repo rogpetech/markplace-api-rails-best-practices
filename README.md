@@ -1,94 +1,146 @@
-# Readme Best Practices
-> A place to copy-paste your README.md from
+![Logo of the project](https://raw.githubusercontent.com/jehna/readme-best-practices/master/sample-logo.png)
 
-O intuito do projeto Rails API tem como foco termos uma aplicação com boas práticas para que
-possamos utilizar como referência em todos os projetos desenvolvidos.
+# MarketPlaceAPI
+> Additional information or tagline
 
-## Versions
+O projeto é sobre um api com as técnicas de desenvolvimento e também com as boas
+práticas do Rails 7. Onde a intensão é termos um projeto base para o desenvolvimento
+de uma aplicacão RESTFULL.
 
- * Ruby 3.0.0
- * Rails 7
+## Installing / Getting started
 
-## Getting started
+Postgres 13
 
-Copy the `README-default.md` file for yourself and start editing! At the root of
-your project, run:
+Requisitos: Docker(Colima) e Docker Compose ou Ruby 3.2.0
 
-```shell
-curl https://raw.githubusercontent.com/jehna/readme-best-practices/master/README-default.md > README.md
+A quick introduction of the minimal setup you need to get a hello world up &
+running.
+
+
+sem docker
+
+```sh
+$ bundle install
+$ rails server
 ```
 
-The code above fetches the `README-default.md` file from this repository and
-renames it to `README.md`.
 
-## Fill with your own text
-
-The default template has some guiding text to get you started. However you'll
-need to edit the file with your own text to use it with your project.
+com docker (Ele irá start a aplicacão)
 
 ```shell
-atom README.md
+$ docker-compose up -d
 ```
 
-If you're using [Atom](https://atom.io/) code editor, the code above opens the
-file for editing. If necessary, substitute with your preferred markdown editor.
+Acesse o link para documentacao dos endpoints [Link API Doc](http://api.lvh.me:3000/api-docs/index.html)
 
-### Add to git and push
+Link para a API: [Link API](http://api.lvh.me:3000)
 
-After you've filled your `README.md` file with your own project's text, you
-should push it to your GitHub project:
+## Developing
+
+Here's a brief intro about what a developer must do in order to start developing
+the project further:
 
 ```shell
-git add README.md
-git commit -m "Added: README"
-git push
+git clone git@github.com:rogpetech/markplace-api-rails-best-practices.git
+cd markplace-api-rails-best-practices/
+bundle install
 ```
 
-This adds the `README.md` file to your git repository, creates a commit for it
-and pushes it to GitHub (or other preferred remote repository).
+Acessar o servidor: http://localhost:3000
+
+
+### Gereando Documentacão
+
+sem docker
+
+```shell
+$ rake rswag:specs:swaggerize
+```
+
+Com docker
+
+```shell
+$ docker-compose run app rake rswag:specs:swaggerize
+```
+
+### Deploying / Publishing
+
+In case there's some step you have to take that publishes this project to a
+server, this is the right time to state it.
+
+```shell
+packagemanager deploy awesome-project -s server.com -u username -p password
+```
+
+And again you'd need to tell what the previous code actually does.
 
 ## Features
 
-This project makes it easy to:
-* Bootstrap your open source project properly
-* Make sure everyone gets what you're trying to achieve with your project
-* Follow simple instructions for a perfect `README.md`
+What's all the bells and whistles this project can perform?
+* What's the main functionality
+* You can also do another thing
+* If you get really randy, you can even do this
 
-## Diagramas
+## Configuration
 
-#### Banco de dados
+Here you should write what are all of the configurations a user can enter when
+using the project.
 
-https://dbdiagram.io/d/64ba405802bd1c4a5e76287b
+#### Argument 1
+Type: `String`  
+Default: `'default value'`
+
+State what an argument does and how you can use it. If needed, you can provide
+an example below.
+
+Example:
+```bash
+awesome-project "Some other value"  # Prints "You're nailing this readme!"
+```
+
+#### Argument 2
+Type: `Number|Boolean`  
+Default: 100
+
+Copy-paste as many of these as you need.
 
 ## Contributing
 
-As I use this for my own projects, I know this might not be the perfect approach
-for all the projects out there. If you have any ideas, just
-[open an issue][issues] and tell me what you think.
+When you publish something open source, one of the greatest motivations is that
+anyone can just jump in and start contributing to your project.
 
-If you'd like to contribute, please fork the repository and make changes as
-you'd like. Pull requests are warmly welcome.
+These paragraphs are meant to welcome those kind souls to feel that they are
+needed. You should state something like:
 
-If your vision of a perfect `README.md` differs greatly from mine, it might be
-because your projects are for vastly different. In this case, you can create a
-new file `README-yourplatform.md` and create the perfect boilerplate for that.
+"If you'd like to contribute, please fork the repository and use a feature
+branch. Pull requests are warmly welcome."
 
-E.g. if you have a perfect `README.md` for a Grunt project, just name it as
-`README-grunt.md`.
+If there's anything else the developer needs to know (e.g. the code style
+guide), you should link it here. If there's a lot of things to take into
+consideration, it is common to separate this section to its own file called
+`CONTRIBUTING.md` (or similar). If so, you should say that it exists here.
 
-## Related projects
+## Links
 
-Here's a list of other related projects where you can find inspiration for
-creating the best possible README for your own project:
+Even though this information can be found inside the project on machine-readable
+format like in a .json file, it's good to include a summary of most useful
+links to humans using your project. You can include links like:
 
-- [Billie Thompson's README template](https://gist.github.com/PurpleBooth/109311bb0361f32d87a2)
-- [A list of awesome READMEs](https://github.com/matiassingers/awesome-readme)
-- [Akash Nimare's kickass README guide](https://gist.github.com/akashnimare/7b065c12d9750578de8e705fb4771d2f)
-- [Dan Bader's README template](https://github.com/dbader/readme-template)
+- Project homepage: https://your.github.com/awesome-project/
+- Repository: https://github.com/your/awesome-project/
+- Issue tracker: https://github.com/your/awesome-project/issues
+  - In case of sensitive bugs like security vulnerabilities, please contact
+    my@email.com directly instead of using issue tracker. We value your effort
+    to improve the security and privacy of this project!
+- Related projects:
+  - Your other project: https://github.com/your/other-project/
+  - Someone else's project: https://github.com/someones/awesome-project/
+
 
 ## Licensing
 
-This project is licensed under Unlicense license. This license does not require
-you to take the license with you to your project.
+One really important part: Give your project a proper license. Here you should
+state what the license is and how to find the text version of the license.
+Something like:
 
-[issues]:https://github.com/jehna/readme-best-practices/issues/new
+"The code in this project is licensed under MIT license."

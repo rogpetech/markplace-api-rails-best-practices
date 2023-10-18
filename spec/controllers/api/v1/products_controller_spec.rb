@@ -12,21 +12,55 @@ RSpec.describe Api::V1::ProductsController do
       expect(product_response[:title]).to eql @product.title
     end
 
+    it 'has the user as a embeded object' do
+      product_response = json_response
+      expect(product_response[:user][:email]).to eql @product.user.email
+    end
+
     it { should respond_with 200 }
   end
 
   describe 'GET #index' do
     before(:each) do
       FactoryBot.create_list(:product, 5)
-      get :index
     end
 
-    it 'returns 5 records from the database' do
-      products_response = json_response
-      expect(products_response.count).to eq 5
+    context "when is not receiving any product_ids parameter" do
+      before(:each) do
+        get :index
+      end
+
+      it 'returns 5 records from the database' do
+        products_response = json_response
+        expect(products_response.count).to eq 5
+      end
+
+      it "return the user object into each product" do
+        products_response = json_response
+        products_response.each do |product_response|
+          expect(product_response[:user]).to be_present
+        end
+      end
+
+      it { should respond_with 200 }
     end
 
-    it { should respond_with 200 }
+    context "when product_ids parameter is sent" do
+      before(:each) do
+        @user = FactoryBot.create(:user)
+        FactoryBot.create_list(:product, 5, user: @user)
+        get :index, params: { product_ids: @user.product_ids }
+      end
+
+      it 'returns just the products that belong to the user' do
+        # products_response = json_response[:products]
+        products_response = json_response
+        products_response.each do |product_response|
+          expect(product_response[:user][:email]).to eql @user.email
+        end
+      end
+    end
+
   end
 
   describe 'POST #create' do

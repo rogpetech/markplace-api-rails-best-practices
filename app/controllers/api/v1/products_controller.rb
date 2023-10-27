@@ -5,9 +5,7 @@ module Api
       respond_to :json
 
       def index
-        return respond_with Product.find(params[:product_ids]) if params[:product_ids].present?
-
-        respond_with Product.all
+        respond_with Product.search(params)
       end
 
       def show

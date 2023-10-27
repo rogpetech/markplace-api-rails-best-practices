@@ -96,4 +96,46 @@ RSpec.describe Product, type: :model do
       expect(Product.by_recent).to match_array(products)
     end
   end
+
+  describe ".search" do
+    before(:each) do
+      @product1 = FactoryBot.create(:product, price: 100, title: 'TV de LCD')
+      @product2 = FactoryBot.create(:product, price: 50, title: 'Playstation 5 - Video Game')
+      @product3 = FactoryBot.create(:product, price: 150, title: 'Fone de ouvido para música')
+      @product4 = FactoryBot.create(:product, price: 99, title: 'MacBook - Computador')
+    end
+
+    context "when title TV and 100 a min price are set" do
+      it 'returns an array with product' do
+        search_params = { keyword: 'TV', min_price: 100 }
+        expect(Product.search(search_params)).to match_array([@product1])
+      end
+    end
+
+    context "when title Playstation, 200 as max price, and 80 as min price as set " do
+      it 'returns the product array empty' do
+        search_params = { keyword: 'playstation', min_price: 80, max_price: 200 }
+        expect(Product.search(search_params)).to match_array([])
+      end
+    end
+
+    context 'when an empty hash is sent' do
+      it 'returns all the products' do
+        products = [@product1, @product2, @product3, @product4]
+        expect(Product.search({})).to match(products)
+      end
+
+      it 'retuns all the product when params empty' do
+        products = [@product1, @product2, @product3, @product4]
+        expect(Product.search()).to match(products)
+      end
+    end
+
+    context 'when product_ids is present' do
+      it 'returns the product from the ids' do
+        search_params = { product_ids: [@product1.id, @product2.id] }
+        expect(Product.search(search_params)).to match_array([@product1, @product2])
+      end
+    end
+  end
 end

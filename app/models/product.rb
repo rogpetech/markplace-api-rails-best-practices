@@ -1,6 +1,8 @@
 class Product < ApplicationRecord
   belongs_to :user, optional: true
-
+  has_many :placements
+  has_many :orders, through: :placements
+  
   validates :title, :user_id, presence: true
   validates :price, numericality: { greater_than_or_equal_to: 0 },
                     presence: true
@@ -8,6 +10,7 @@ class Product < ApplicationRecord
   scope :by_below_or_equal_to_price, -> (price) { where("price <= ?", price) }
   scope :by_above_or_equal_to_price, -> (price) { where("price >= ?", price) }
   scope :by_recent, -> { order(:updated_at) }
+  
 
   def self.search(params = {})
     product_ids = params[:product_ids]

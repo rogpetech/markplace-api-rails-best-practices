@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe Api::V1::ProductsController do
+RSpec.describe Api::V1::ProductsController, type: :controller do
   describe 'GET #show' do
     before(:each) do
       @product = FactoryBot.create(:product)

@@ -40,6 +40,7 @@ RSpec.describe User, type: :model do
   end
 
   describe 'associations' do
-    it { should have_many(:products) }
+    it { should have_many(:products).dependent(:destroy) }
+    it { should have_many(:orders).dependent(:destroy) }
   end
 end

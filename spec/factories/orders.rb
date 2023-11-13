@@ -1,6 +1,6 @@
 FactoryBot.define do
   factory :order do
     user
-    total { "9.99" }
+    total { 0 }
   end
 end

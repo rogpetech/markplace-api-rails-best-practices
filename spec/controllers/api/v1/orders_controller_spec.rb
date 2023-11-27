@@ -46,13 +46,18 @@ RSpec.describe Api::V1::OrdersController, type: :controller do
 
       product_1 = FactoryBot.create(:product)
       product_2 = FactoryBot.create(:product)
-      order_params = { product_ids: [product_1.id, product_2.id] }
+      order_params = { product_ids_and_quantities: [[product_1.id, 2], [product_2.id, 4]] }
       post :create, params: { user_id: current_user.id, order: order_params }
     end
 
     it 'returns the just user order record' do
       order_response = json_response[:order]
       expect(order_response[:id]).to be_present
+    end
+
+    it "embeds the two products objects related to the order" do
+      order_response = json_response[:products]
+      expect(order_response.size).to eql 2
     end
 
     it { should respond_with 201 }

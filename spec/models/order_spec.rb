@@ -33,4 +33,16 @@ RSpec.describe Order, type: :model do
       expect{@order.set_total!}.to change{@order.total}.from(0).to(185)
     end
   end
+
+  describe "#build_placements_with_product_ids_and_quantities" do
+    let!(:product1) { FactoryBot.create(:product, price: 100, quantity: 5) }
+    let!(:product2) { FactoryBot.create(:product, price: 85, quantity: 10) }
+    let!(:product_ids_quantities) { [[product1.id, 2], [product2.id, 3]] }
+
+    it "builds 2 placements for the order" do
+      expect {
+        order.build_placements_with_product_ids_and_quantities(product_ids_quantities)
+      }.to change { order.placements.size }.from(0).to(2)
+    end
+  end
 end

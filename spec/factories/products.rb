@@ -5,5 +5,6 @@ FactoryBot.define do
     description { FFaker::Book.description }
     published { false }
     user
+    quantity { 2 }
   end
 end

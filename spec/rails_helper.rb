@@ -6,6 +6,8 @@ require_relative '../config/environment'
 require 'shoulda/matchers'
 abort('The Rails environment is running in production mode!') if Rails.env.production?
 require 'rspec/rails'
+require 'email_spec'
+require 'email_spec/rspec'
 
 rails_support_path = Rails.root.join('spec', 'support', '**', '*.rb')
 Dir[rails_support_path].each { |file| require file }
@@ -30,6 +32,8 @@ RSpec.configure do |config|
 
   # Filter lines from Rails gems in backtraces.
   config.filter_rails_from_backtrace!
+  config.include EmailSpec::Helpers, type: :mailer
+  config.include EmailSpec::Matchers, type: :mailer
   config.include Request::JsonHelpers, type: :controller
   config.include Request::HeadersHelpers, type: :controller
   config.include Devise::Test::ControllerHelpers, type: :controller

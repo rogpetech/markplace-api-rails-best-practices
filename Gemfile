@@ -44,6 +44,7 @@ group :test do
   gem 'shoulda-matchers', '~> 5.0'
   gem 'simplecov', '~> 0.22.0', require: false
   gem 'database_cleaner'
+  gem 'email_spec'
 end
 
 group :development do

@@ -17,7 +17,7 @@ class Order < ApplicationRecord
   def build_placements_with_product_ids_and_quantities(product_ids_quantities)
     product_ids_quantities.each do |product_ids_quantitiy|
       id, quantity = product_ids_quantitiy
-      placements.build(product_id: id)
+      placements.build(product_id: id, quantity: quantity)
     end
   end
 end

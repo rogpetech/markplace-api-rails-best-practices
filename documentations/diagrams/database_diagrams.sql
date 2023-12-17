@@ -25,7 +25,8 @@ CREATE TABLE "orders" (
 CREATE TABLE "placements" (
   "id" integer,
   "order_id" integer,
-  "product_id" integer
+  "product_id" integer,
+  "quantity" integer
 );
 
 CREATE INDEX "user_token" ON "users" ("token");

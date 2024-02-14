@@ -1,4 +1,5 @@
 class Order < ApplicationRecord
+  include ActiveModel::Validations
 
   before_validation :set_total!, if: -> { (total.nil? || total.zero?) && products.any? }
 
@@ -9,6 +10,8 @@ class Order < ApplicationRecord
   validates :total, presence: true,
                       numericality: { greater_than_or_equal_to: 0 }
   validates :user_id, presence: true
+
+  validates_with EnoughProductsValidator
 
   def set_total!
     self.total = products.map(&:price).sum

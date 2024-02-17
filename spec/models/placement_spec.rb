@@ -11,5 +11,13 @@ RSpec.describe Placement, type: :model do
   describe 'respond_to' do
     it { should respond_to :order_id }
     it { should respond_to :product_id }
+    it { should respond_to :quantity }
+  end
+
+  describe '#decrement_product_quantity!' do
+    it 'does return descreases the product quantity by the placement quantity' do
+      product = placement.product
+      expect{ placement.decrement_product_quantity! }.to change{product.quantity}.by(-placement.quantity)
+    end
   end
 end
